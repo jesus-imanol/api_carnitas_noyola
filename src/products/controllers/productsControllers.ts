@@ -16,9 +16,9 @@ export const getProducts = async (_req: Request, res: Response) => {
 
 export const getProductById = async (req: Request, res: Response) => {
   try {
-    const employee = await productsService.getProductById(parseInt(req.params.product_id, 10));
-    if(employee){
-      res.status(201).json(employee);
+    const product = await productsService.getProductById(parseInt(req.params.product_id, 10));
+    if(product){
+      res.status(201).json(product);
     }else{
       res.status(404).json({ message: 'No se encontró el usuario' });
     }
@@ -42,7 +42,7 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const updatedProduct = async (req: Request, res: Response) => {
   try {
-    const updatedEmployee = await productsService.modifyProduct(parseInt(req.params.employee_id, 10), req.body);
+    const updatedEmployee = await productsService.modifyProduct(parseInt(req.params.product_id, 10), req.body);
     if(updatedEmployee){
       res.status(201).json(updatedEmployee);
     }else{

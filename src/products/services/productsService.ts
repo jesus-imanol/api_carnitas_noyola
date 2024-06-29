@@ -24,6 +24,7 @@ export class productsService {
         try {
             product.created_at = DateUtils.formatDate(new Date());
             product.updated_at = DateUtils.formatDate(new Date());
+            product.deleted=false;
             return await ProductRepository.createProduct(product);
         } catch (error: any) {
             throw new Error(`Error al crear producto: ${error.message}`);
@@ -46,7 +47,7 @@ export class productsService {
             }else{
                 return null;
             }
-            productFound.updated_by = productFound.updated_by
+            productFound.updated_by = productData.updated_by
             productFound.updated_at = DateUtils.formatDate(new Date());
             return await ProductRepository.updateProduct(product_id, productFound);
         }catch (error: any){

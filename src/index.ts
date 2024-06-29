@@ -9,6 +9,7 @@ import productsRoutes from './products/routes/productsRoutes';
 // Importar middlewares compartidos
 import { errorHandler } from './shared/middlewares/errorHandler';
 import { notFoundHandler } from './shared/middlewares/notFoundHandler';
+import userRoute from './user/routes/userRoute';
 
 // Configuración de variables de entorno
 dotenv.config();
@@ -23,8 +24,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // Rutas de los módulos
 //app.use('/api/employee', employeeRoutes);
-app.use('/api/products',productsRoutes)
-
+app.use('/api/products',productsRoutes);
+app.use('/api/users', userRoute);
 // Middleware para manejar rutas no encontradas
 app.use(notFoundHandler);
 
