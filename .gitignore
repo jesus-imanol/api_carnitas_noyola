@@ -7,8 +7,7 @@ node_modules/
 
 # IDE - VSCode
 /.vscode
-.history/*
-
+ .history/*
 # misc
 .env
 
