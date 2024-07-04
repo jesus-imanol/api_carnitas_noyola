@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { userService } from '../services/userService';
-
 export const loginUser= async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
@@ -8,7 +7,8 @@ export const loginUser= async (req: Request, res: Response) => {
     if (!token) {
       res.status(401).json({ message: 'Invalid email or password' });
     }else{
-      res.status(200).json({ message: 'Inicio de sesión exitoso', token });
+      res.setHeader("Authorization",token);
+      res.status(200).json({ message: 'Inicio de sesión exitoso'});
     }
 
   } catch (error) {
