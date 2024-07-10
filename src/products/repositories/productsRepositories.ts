@@ -6,7 +6,7 @@ export class ProductRepository {
 
   public static async findAll(): Promise<Product[]> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Product', (error: any, results) => {
+      connection.query('SELECT * FROM Product Where deleted=0', (error: any, results) => {
         if (error) {
           reject(error);
         } else {
@@ -35,10 +35,9 @@ export class ProductRepository {
   }
 
   public static async createProduct(product: Product): Promise<Product> {
-    const query = 'INSERT INTO Product (type, price, created_at, created_by, updated_at, updated_by, deleted) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    console.log(product);
+    const query = 'INSERT INTO Product (type, amount, price, created_at, created_by, updated_at, updated_by, deleted) VALUES (?,?, ?, ?, ?, ?, ?, ?)';
     return new Promise((resolve, reject) => {
-      connection.execute(query, [product.type, product.price, product.created_at, product.created_by, product.updated_at, product.updated_by, product.deleted], (error, result: ResultSetHeader) => {
+      connection.execute(query, [product.type, product.amount, product.price, product.created_at, product.created_by, product.updated_at, product.updated_by, product.deleted], (error, result: ResultSetHeader) => {
         if (error) {
           reject(error);
         } else {
@@ -49,11 +48,10 @@ export class ProductRepository {
       });
     });
   }
-
   public static async updateProduct(product_id: number, productData: Product): Promise<Product | null> {
-    const query = 'UPDATE Product SET type = ?, price = ?, updated_at = ?, updated_by = ?, deleted = ? WHERE product_id = ?';
+    const query = 'UPDATE Product SET type = ?, amount = ?,price = ?,  created_at=?, created_by = ?, updated_at = ?, updated_by = ?, deleted = ? WHERE product_id = ?';
     return new Promise((resolve, reject) => {
-      connection.execute(query, [productData.type, productData.price, productData.updated_at, productData.updated_by, productData.deleted, product_id], (error, result: ResultSetHeader) => {
+      connection.execute(query, [productData.type, productData.amount, productData.price, productData.created_at, productData.created_by,productData.updated_at, productData.updated_by,productData.deleted, product_id], (error, result: ResultSetHeader) => {
         if (error) {
           reject(error);
         } else {

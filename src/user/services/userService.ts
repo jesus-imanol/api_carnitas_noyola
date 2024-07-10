@@ -84,9 +84,6 @@ export class userService {
                 if(userData.number_phone){
                     userFound.number_phone=userData.number_phone; 
                 }
-                if(userData.deleted){
-                    userFound.deleted= userData.deleted;
-                }
             }else{
                 return null;
             }
