@@ -19,9 +19,9 @@ export class userService {
             if (!passwordMatch) {
                 return null;
             }
-
             const payload = {
                 user_id: user.user_id,
+                role_id_fk: user.role_id_fk,
                 email: user.email
             }
             return await jwt.sign(payload, secretKey, { expiresIn: '5m' });
@@ -83,6 +83,9 @@ export class userService {
                 }
                 if(userData.number_phone){
                     userFound.number_phone=userData.number_phone; 
+                }
+                if(userData.role_id_fk){
+                    userFound.role_id_fk=userData.role_id_fk;
                 }
             }else{
                 return null;

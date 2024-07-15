@@ -9,4 +9,5 @@ export interface User {
     updated_at: string;
     updated_by: String;
     deleted: boolean;
+    role_id_fk: number;
 }
