@@ -5,9 +5,9 @@ import { authMiddleware } from '../../shared/middlewares/auth';
 const productsRoutes: Router = Router();
 
 productsRoutes.get('/',authMiddleware,getProducts);
-productsRoutes.get('/:product_id', authMiddleware,getProductById);
+productsRoutes.get('/:role_id', authMiddleware,getProductById);
 productsRoutes.post('/',authMiddleware, createProduct);
-productsRoutes.put('/:product_id', authMiddleware,updatedProduct);
-productsRoutes.delete('/:product_id', authMiddleware, deleteProduct);
-productsRoutes.put("/delete/:product_id", authMiddleware, deletedProductLogic);
+productsRoutes.put('/:role_id', authMiddleware,updatedProduct);
+productsRoutes.delete('/:role_id', authMiddleware, deleteProduct);
+productsRoutes.put("/delete/:role_id", authMiddleware, deletedProductLogic);
 export default productsRoutes;
