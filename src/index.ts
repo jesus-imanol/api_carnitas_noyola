@@ -11,6 +11,7 @@ import { errorHandler } from './shared/middlewares/errorHandler';
 import { notFoundHandler } from './shared/middlewares/notFoundHandler';
 import userRoute from './user/routes/userRoute';
 import ordersRoutes from './orders/routes/ordersRoutes';
+import rolesRoutes from './role/routes/roleRoutes';
 
 // Configuración de variables de entorno
 dotenv.config();
@@ -27,7 +28,8 @@ app.use(cors())
 //app.use('/api/employee', employeeRoutes);
 app.use('/api/products',productsRoutes);
 app.use('/api/users', userRoute);
-app.use("/api/orders", ordersRoutes)
+app.use("/api/orders", ordersRoutes);
+app.use("/api/roles", rolesRoutes);
 // Middleware para manejar rutas no encontradas
 app.use(notFoundHandler);
 
