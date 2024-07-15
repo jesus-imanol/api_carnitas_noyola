@@ -47,6 +47,9 @@ export class ordersService {
                 if(orderData.payment_method){
                   orderFound.payment_method = orderData.payment_method;
                 }
+                if(orderData.user_id_fk){
+                    orderFound.user_id_fk=orderData.user_id_fk;
+                }
             }else{
                 return null;
             }

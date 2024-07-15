@@ -35,9 +35,9 @@ export class OrdersRepository {
   }
 
   public static async createOrder(order: Orders): Promise<Orders> {
-    const query = 'INSERT INTO Orders (order_date, total_amount, status, payment_method, created_at, created_by, updated_at, updated_by, deleted) VALUES (?,?, ?, ?, ?, ?, ?, ?,?)';
+    const query = 'INSERT INTO Orders (order_date, total_amount, status, payment_method, created_at, created_by, updated_at, updated_by, deleted, user_id_fk) VALUES (?,?,?, ?, ?, ?, ?, ?, ?,?)';
     return new Promise((resolve, reject) => {
-      connection.execute(query, [order.order_date, order.total_amount,order.status, order.payment_method, order.created_at, order.created_by, order.updated_at, order.updated_by, order.deleted], (error, result: ResultSetHeader) => {
+      connection.execute(query, [order.order_date, order.total_amount,order.status, order.payment_method, order.created_at, order.created_by, order.updated_at, order.updated_by, order.deleted, order.user_id_fk], (error, result: ResultSetHeader) => {
         if (error) {
           reject(error);
         } else {
@@ -49,9 +49,9 @@ export class OrdersRepository {
     });
   }
   public static async updateOrder(orders_id: number, orderData: Orders): Promise<Orders | null> {
-    const query = 'UPDATE Orders SET order_date=?, total_amount=?, status=?, payment_method=?, created_at=?, created_by=?, updated_at=?, updated_by=?, deleted=? WHERE orders_id = ?';
+    const query = 'UPDATE Orders SET order_date=?, total_amount=?, status=?, payment_method=?, created_at=?, created_by=?, updated_at=?, updated_by=?, deleted=?, user_id_fk= ?, WHERE orders_id = ?';
     return new Promise((resolve, reject) => {
-      connection.execute(query, [orderData.order_date, orderData.total_amount,orderData.status, orderData.payment_method, orderData.created_at, orderData.created_by,orderData.updated_at, orderData.updated_by,orderData.deleted, orders_id], (error, result: ResultSetHeader) => {
+      connection.execute(query, [orderData.order_date, orderData.total_amount,orderData.status, orderData.payment_method, orderData.created_at, orderData.created_by,orderData.updated_at, orderData.updated_by,orderData.deleted,orderData.user_id_fk, orders_id], (error, result: ResultSetHeader) => {
         if (error) {
           reject(error);
         } else {
@@ -67,7 +67,7 @@ export class OrdersRepository {
   }
 
   public static async deleteOrder(orders_id: number): Promise<boolean> {
-    const query = 'DELETE FROM Orders WHERE orders_id = ?';
+    const query = 'DELETE FROM Oders WHERE orders_id = ?';
     return new Promise((resolve, reject) => {
       connection.execute(query, [orders_id], (error, result: ResultSetHeader) => {
         if (error) {

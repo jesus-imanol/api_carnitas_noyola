@@ -9,5 +9,5 @@ export interface Orders{
    updated_at: string;
    updated_by: string;
    deleted: boolean;
-   client_id_fk: number;
+   user_id_fk: number;
 }
