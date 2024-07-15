@@ -50,7 +50,7 @@ export class ordersService {
             }else{
                 return null;
             }
-            orderFound.updated_by = orderData.updated_by
+            orderFound.updated_by = orderData.updated_by;
             orderFound.updated_at = DateUtils.formatDate(new Date());
             return await OrdersRepository.updateOrder(orders_id, orderFound);
         }catch (error: any){

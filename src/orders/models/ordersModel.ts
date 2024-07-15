@@ -1,6 +1,6 @@
 export interface Orders{
    orders_id: number | null;
-   order_date: string;
+   order_date: Date;
    total_amount: number;
    status: string;
    payment_method: string;

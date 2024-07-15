@@ -75,6 +75,9 @@ export class userService {
                 if(userData.name){
                     userFound.name = userData.name;
                 }
+                if(userData.lastname){
+                    userFound.lastname = userData.lastname;
+                }
                 if(userData.password){
                     userFound.password = await bcrypt.hash(userData.password, salt);
                 }

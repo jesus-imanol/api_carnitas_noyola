@@ -48,9 +48,9 @@ export class UserRepository{
       });
     }
     public static async createUser(user: User): Promise<User>{
-      const query = 'INSERT INTO User (name, password, email, number_phone, created_at, created_by, updated_at, updated_by, deleted, role_id_fk) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?,?)';
+      const query = 'INSERT INTO User (name,lastname, password, email, number_phone, created_at, created_by, updated_at, updated_by, deleted, role_id_fk) VALUES(?,?, ?, ?, ?, ?, ?, ?, ?, ?,?)';
       return new Promise((resolve, reject) =>{
-        connection.execute(query, [user.name, user.password, user.email, user.number_phone, user.created_at, user.created_by, user.updated_at, user.updated_by, user.deleted, user.role_id_fk], (error, result: ResultSetHeader)=>{
+        connection.execute(query, [user.name, user.lastname, user.password, user.email, user.number_phone, user.created_at, user.created_by, user.updated_at, user.updated_by, user.deleted, user.role_id_fk], (error, result: ResultSetHeader)=>{
           if(error){
             reject(error);
           }else{
