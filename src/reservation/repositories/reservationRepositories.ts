@@ -34,7 +34,7 @@ export class ReservationRepository {
   }
   public static async findByStatusAcepted(): Promise<Reservation[]> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Reservation WHERE status LIKE "Aceptado" AND deleted = 0', (error: any, results) => {
+      connection.query('SELECT * FROM Reservation WHERE `status` = "Aceptado" AND deleted = 0', (error: any, results) => {
         if (error) {
           reject(error);
         } else {
@@ -46,7 +46,7 @@ export class ReservationRepository {
   }
   public static async findByStatusPending(): Promise<Reservation[]> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Reservation WHERE status LIKE "Pendiente" AND deleted = 0', (error: any, results) => {
+      connection.query('SELECT * FROM Reservation WHERE `status` = "Pendiente" AND deleted = 0', (error: any, results) => {
         if (error) {
           reject(error);
         } else {
@@ -58,7 +58,7 @@ export class ReservationRepository {
   }
   public static async findByStatusCanceled(): Promise<Reservation[]> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Reservation WHERE status LIKE "Cancelado"AND deleted = 0', (error: any, results) => {
+      connection.query('SELECT * FROM Reservation WHERE `status` = "Cancelado" AND deleted = 0', (error: any, results) => {
         if (error) {
           reject(error);
         } else {
@@ -70,7 +70,7 @@ export class ReservationRepository {
   }
   public static async findByReservationsDate(reservationsDate: Date): Promise<Reservation[] > {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Reservation WHERE reservationsDate = ? AND deleted =0', [reservationsDate],(error: any, results) => {
+      connection.query('SELECT * FROM Reservation WHERE reservationsDate = ? AND deleted = 0', [reservationsDate],(error: any, results) => {
         if (error) {
           reject(error);
         } else {
