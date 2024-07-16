@@ -10,8 +10,8 @@ reservationRoutes.post('/',authMiddleware, createReservation);
 reservationRoutes.put('/:reservation_id', authMiddleware, updatedReservation);
 reservationRoutes.delete('/:reservation_id',authMiddleware, deleteReservation);
 reservationRoutes.put("/delete/:product_id", authMiddleware, deletedReservationLogic);
-reservationRoutes.get("/acepted/", authMiddleware, getReservationsAcepted);
-reservationRoutes.get("/pending/", authMiddleware, getReservationsPending);
+reservationRoutes.get("/acepted", authMiddleware, getReservationsAcepted);
+reservationRoutes.get("/pending", authMiddleware, getReservationsPending);
 reservationRoutes.get("/date/:reservationsDate", authMiddleware, getReservationsByReservationsDate);
-reservationRoutes.get("/canceled/", authMiddleware, getReservationsCanceled)
+reservationRoutes.get("/canceled", authMiddleware, getReservationsCanceled)
 export default reservationRoutes;
