@@ -34,7 +34,7 @@ export class ReservationRepository {
   }
   public static async findByStatusAcepted(): Promise<Reservation[]> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Reservation WHERE status = Aceptado', (error: any, results) => {
+      connection.query('SELECT * FROM Reservation WHERE status = "Aceptado"', (error: any, results) => {
         if (error) {
           reject(error);
         } else {
@@ -46,7 +46,7 @@ export class ReservationRepository {
   }
   public static async findByStatusPending(): Promise<Reservation[]> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Reservation WHERE status = Pendiente', (error: any, results) => {
+      connection.query('SELECT * FROM Reservation WHERE status = "Pendiente"', (error: any, results) => {
         if (error) {
           reject(error);
         } else {
