@@ -12,6 +12,7 @@ import { notFoundHandler } from './shared/middlewares/notFoundHandler';
 import userRoute from './user/routes/userRoute';
 import ordersRoutes from './orders/routes/ordersRoutes';
 import rolesRoutes from './role/routes/roleRoutes';
+import reservationRoutes from './reservation/routes/reservationRoutes';
 
 // Configuración de variables de entorno
 dotenv.config();
@@ -30,6 +31,7 @@ app.use('/api/products',productsRoutes);
 app.use('/api/users', userRoute);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/roles", rolesRoutes);
+app.use("api/reservations", reservationRoutes);
 // Middleware para manejar rutas no encontradas
 app.use(notFoundHandler);
 
