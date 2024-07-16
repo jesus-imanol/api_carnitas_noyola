@@ -12,6 +12,34 @@ export class reservationService {
         }
     }
 
+    public static async getReservationsPending(): Promise<Reservation[]>{
+        try{
+        return await ReservationRepository.findByStatusPending();
+        }catch(error: any){
+            throw new Error(`Error al obtener las reservación: ${error.message}`);
+        }
+    }
+    public static async getReservationsCanceled(): Promise<Reservation[]>{
+        try{
+        return await ReservationRepository.findByStatusCanceled();
+        }catch(error: any){
+            throw new Error(`Error al obtener las reservación: ${error.message}`);
+        }
+    }
+    public static async getReservationsAcepted(): Promise<Reservation[]>{
+        try{
+          return await ReservationRepository.findByStatusAcepted();
+        }catch(error:any){
+            throw new Error(`Error al obtener las reservaciones: ${error.message}`)
+        }
+    }
+    public static async getReservationsByReservationsDate(reservationsDate: Date): Promise<Reservation[]>{
+        try{
+           return await ReservationRepository.findByReservationsDate(reservationsDate);
+        }catch(error:any){
+            throw new Error(`Error al obtener las reservaciones: ${error.message}`)
+        }
+    }
     public static async getReservationById(reservation_id: number): Promise<Reservation | null> {
         try{
             return await ReservationRepository.findById(reservation_id);

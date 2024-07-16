@@ -32,6 +32,54 @@ export class ReservationRepository {
       });
     });
   }
+  public static async findByStatusAcepted(): Promise<Reservation[]> {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM Reservation WHERE status = "Aceptado"', (error: any, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          const reservations: Reservation[] = results as Reservation[];
+          resolve(reservations);
+        }
+      });
+    });
+  }
+  public static async findByStatusPending(): Promise<Reservation[]> {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM Reservation WHERE status = "Pendiente"', (error: any, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          const reservations: Reservation[] = results as Reservation[];
+          resolve(reservations);
+        }
+      });
+    });
+  }
+  public static async findByStatusCanceled(): Promise<Reservation[]> {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM Reservation WHERE status = "Cancelado"', (error: any, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          const reservations: Reservation[] = results as Reservation[];
+          resolve(reservations);
+        }
+      });
+    });
+  }
+  public static async findByReservationsDate(reservationsDate: Date): Promise<Reservation[] > {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM Reservation WHERE reservationsDate = ?', [reservationsDate],(error: any, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          const reservations: Reservation[] = results as Reservation[];
+          resolve(reservations);
+        }
+      });
+    });
+  }
 
   public static async createReservation(reservation: Reservation): Promise<Reservation> {
     const query = 'INSERT INTO Reservation (description,amount_persons,amount_tables,reservationsDate,status, created_at, created_by, updated_at, updated_by, deleted, user_id_fk) VALUES (?,?,?, ?, ?, ?, ?,?,?,?,?)';

@@ -12,12 +12,59 @@ export const getReservations = async (_req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+export const getReservationsPending = async(_req: Request, res: Response) => {
+    try{
+     const reservations = await reservationService.getReservationsPending();
+     if(reservations){
+        res.status(201).json(reservations)
+     }else{
+        res.status(404).json({message: "No hay reservaciones que mostrar"})
+     }
+    }catch(error: any){
+      res.status(500).json({error: error.message});
+    }
+};
+export const getReservationsAcepted = async(_req: Request, res: Response) =>{
+    try{
+    const reservations = await reservationService.getReservationsAcepted();
+    if(reservations){
+        res.status(201).json(reservations);
+    }else{
+        res.status(404).json({message: "No hay reservaciones que mostrar"})
+    }
+    }catch(error: any){
+        res.status(500).json({error: error.message});
+    }
+};
+export const getReservationsCanceled = async(_req: Request, res: Response) =>{
+    try{
+    const reservations = await reservationService.getReservationsCanceled();
+    if(reservations){
+        res.status(201).json(reservations);
+    }else{
+        res.status(404).json({message: "No hay reservaciones que mostrar"})
+    }
+    }catch(error: any){
+        res.status(500).json({error: error.message});
+    }
+};
+export const getReservationsByReservationsDate = async (req: Request, res: Response) =>{
+    try{
+    const reservations = await reservationService.getReservationsByReservationsDate(new Date(req.params.reservationsDate));
+    if(reservations){
+        res.status(201).json(reservations);
+    }else{
+        res.status(404).json({message: "No se encontró reservaciones para esta fecha"});
+    }
+    }catch(error: any){
+        res.status(500).json({error:error.message})
+    }
+}
 export const getReservationById = async (req: Request, res: Response) => {
   try {
-    const role = await reservationService.getReservationById(parseInt(req.params.reservation_id, 10));
-    if(role){
-      res.status(201).json(role);
+    const reservation = await reservationService.getReservationById(parseInt(req.params.reservation_id, 10));
+    if(reservation){
+      res.status(201).json(reservation);
     }else{
       res.status(404).json({ message: 'No se encontró la reservación' });
     }
