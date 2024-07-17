@@ -7,12 +7,26 @@ export const loginUser= async (req: Request, res: Response) => {
     if (!token) {
       res.status(401).json({ message: 'Invalid email or password' });
     }else {
+      //res.setHeader("Authorization", token);
       res.status(200).json({ message: 'Inicio de sesión exitoso', token});
     }
 
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Internal server error' });
+  }
+}
+export const getUserByEmail = async (req: Request, res: Response) =>{
+  try{
+   const user= await userService.getUserByEmail(req.params.email);
+   if(user){
+    res.status(201).json(user)
+   }else{
+    res.status(404).json({ message: 'No se encontró el usuario' });
+   }
+
+  }catch(error: any){
+    res.status(500).json({error: error.message})
   }
 }
 export const getUsers = async (_req: Request, res: Response) => {
