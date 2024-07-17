@@ -49,7 +49,7 @@ export class ProductRepository {
     });
   }
   public static async updateProduct(product_id: number, productData: Product): Promise<Product | null> {
-    const query = 'UPDATE Product SET type = ?, amount = ?,price = ?,  created_at=?, created_by = ?, updated_at = ?, updated_by = ?, deleted = ? WHERE product_id = ?';
+    const query = 'UPDATE Product SET type = ?, amount = ?,price = ?,  created_at=?, created_by = ?, updated_at = ?, updated_by = ?, deleted = ? WHERE product_id = ? AND deleted = 0 AND deleted =0';
     return new Promise((resolve, reject) => {
       connection.execute(query, [productData.type, productData.amount, productData.price, productData.created_at, productData.created_by,productData.updated_at, productData.updated_by,productData.deleted, product_id], (error, result: ResultSetHeader) => {
         if (error) {
