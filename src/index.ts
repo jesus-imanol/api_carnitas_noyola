@@ -20,7 +20,11 @@ dotenv.config();
 // Crear la aplicación de Express
 const app: Application = express();
 const port: number = parseInt(process.env.PORT as string, 10) | 3000;
-
+const corsOptions = {
+  origin: '*',
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+app.use(cors(corsOptions));
 // Middleware de análisis del cuerpo
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
