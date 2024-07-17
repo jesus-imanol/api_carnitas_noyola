@@ -4,14 +4,14 @@ import { createReservation, deletedReservationLogic, deleteReservation, getReser
 
 const reservationRoutes: Router = Router();
 
-reservationRoutes.get('/',authMiddleware,getReservations);
-reservationRoutes.get('/:reservation_id',authMiddleware,getReservationById);
-reservationRoutes.post('/',authMiddleware, createReservation);
+reservationRoutes.get('/acepted', authMiddleware, getReservationsAcepted);
+reservationRoutes.get('/pending', authMiddleware, getReservationsPending);
+reservationRoutes.get('/canceled', authMiddleware, getReservationsCanceled);
+reservationRoutes.get('/date/:reservationsDate', authMiddleware, getReservationsByReservationsDate);
+reservationRoutes.put('/delete/:product_id', authMiddleware, deletedReservationLogic);
+reservationRoutes.get('/reservation/:reservation_id', authMiddleware, getReservationById);
 reservationRoutes.put('/:reservation_id', authMiddleware, updatedReservation);
-reservationRoutes.delete('/:reservation_id',authMiddleware, deleteReservation);
-reservationRoutes.put("/delete/:product_id", authMiddleware, deletedReservationLogic);
-reservationRoutes.get("/acepted", authMiddleware, getReservationsAcepted);
-reservationRoutes.get("/pending", authMiddleware, getReservationsPending);
-reservationRoutes.get("/date/:reservationsDate", authMiddleware, getReservationsByReservationsDate);
-reservationRoutes.get("/canceled", authMiddleware, getReservationsCanceled)
+reservationRoutes.delete('/:reservation_id', authMiddleware, deleteReservation);
+reservationRoutes.get('/', authMiddleware, getReservations);
+reservationRoutes.post('/', authMiddleware, createReservation);
 export default reservationRoutes;
