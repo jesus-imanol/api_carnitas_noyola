@@ -5,9 +5,9 @@ import { authMiddleware } from '../../shared/middlewares/auth';
 const userRoute: Router = Router();
 userRoute.post('/login', loginUser);
 userRoute.get('/', authMiddleware, getUsers);
-userRoute.get('/:user_id', getUserById);
+userRoute.get('/:user_id', authMiddleware,getUserById);
 userRoute.post('/', createUser);
-userRoute.put('/:user_id', updatedUser);
-userRoute.delete('/:user_id', deleteUser);
+userRoute.put('/:user_id', authMiddleware,updatedUser);
+userRoute.delete('/:user_id', authMiddleware, deleteUser);
 userRoute.get("/email/:email", authMiddleware, getUserByEmail)
 export default userRoute;
