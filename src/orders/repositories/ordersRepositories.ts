@@ -1,6 +1,7 @@
 import { ResultSetHeader } from 'mysql2';
 import connection from '../../shared/config/database';
 import { Orders } from '../models/ordersModel';
+import { ProductOrders } from '../models/productId';
 export class OrdersRepository {
 
   public static async findAll(): Promise<Orders[]> {
@@ -33,9 +34,9 @@ export class OrdersRepository {
     });
   }
 
-  public static async createOrder(order: Orders, productos: ProductId[]): Promise<Orders> {
+  public static async createOrder(order: Orders /*,productos: ProductOrders[]*/): Promise<Orders> {
     const query = 'INSERT INTO Orders (order_date, total_amount, status, payment_method, created_at, created_by, updated_at, updated_by, deleted, user_id_fk) VALUES (?,?,?, ?, ?, ?, ?, ?, ?,?)';
-    const query = "INSERT INTO ProductOrders (id_productOrders, id_product, id_orders) VALUES(?,?,?)";
+    //const query2 = "INSERT INTO ProductOrders (id_productOrders, id_product, id_orders) VALUES(?,?,?)";
     return new Promise((resolve, reject) => {
       connection.execute(query, [order.order_date, order.total_amount,order.status, order.payment_method, order.created_at, order.created_by, order.updated_at, order.updated_by, order.deleted, order.user_id_fk], (error, result: ResultSetHeader) => {
         if (error) {
@@ -46,10 +47,6 @@ export class OrdersRepository {
           resolve(createdOrder);
         }
       }
-      productos.forEach(product => {
-        connection.execute(query, [createdOrderId, product.])
-      });
-    
     );
     });
   }
