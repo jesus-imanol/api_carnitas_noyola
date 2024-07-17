@@ -69,6 +69,21 @@ export class productsService {
     throw new Error(`Error al eliminar producto: ${error.message}`);
       }
     }
+    public static async addAmountProduct(product_id: number, productData: Product){ 
+        try{
+          const productFound = await ProductRepository.findById(product_id);
+          if(productFound){
+              productFound.amount= productFound.amount+productData.amount;
+              productFound.updated_by= productData.updated_by;
+              productFound.updated_at = DateUtils.formatDate(new Date());
+          }else{
+              return null;
+          }
+          return await ProductRepository.updateProduct(product_id, productFound);
+        }catch(error:any){
+      throw new Error(`Error al eliminar producto: ${error.message}`);
+        }
+      }
     public static async deleteProduct(product_id: number): Promise<boolean> {
         try{
             return await ProductRepository.deleteProduct(product_id);

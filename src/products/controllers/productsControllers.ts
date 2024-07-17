@@ -64,6 +64,18 @@ export const deletedProductLogic = async(req: Request, res: Response)=>{
     res.status(500).json({error: error.message})
   }
 }
+export const addAmountProduct = async(req: Request, res: Response)=>{
+  try{
+     const addAmountProduct = await productsService.addAmountProduct(parseInt(req.params.product_id, 10), req.body);
+     if(addAmountProduct){
+      res.status(201).json({message: "Cantidad añadida con éxito"});
+     }else{
+      res.status(404).json({message: "Algo salió mal" });
+     }
+  }catch(error: any){
+    res.status(500).json({error: error.message})
+  }
+}
 export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const deleted = await productsService.deleteProduct(parseInt(req.params.product_id, 10));
