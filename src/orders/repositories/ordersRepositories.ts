@@ -19,7 +19,7 @@ export class OrdersRepository {
 
   public static async findById(orders_id: number): Promise<Orders | null> {
     return new Promise((resolve, reject) => {
-      connection.query('SELECT * FROM Orders WHERE orders_id = ?', [orders_id], (error: any, results) => {
+      connection.query('SELECT * FROM Orders WHERE orders_id = ? AND deleted = 0', [orders_id], (error: any, results) => {
         if (error) {
           reject(error);
         } else {
@@ -49,7 +49,7 @@ export class OrdersRepository {
     });
   }
   public static async updateOrder(orders_id: number, orderData: Orders): Promise<Orders | null> {
-    const query = 'UPDATE Orders SET order_date=?, total_amount=?, status=?, payment_method=?, created_at=?, created_by=?, updated_at=?, updated_by=?, deleted=?, user_id_fk= ?, WHERE orders_id = ?';
+    const query = 'UPDATE Orders SET order_date=?, total_amount=?, status=?, payment_method=?, created_at=?, created_by=?, updated_at=?, updated_by=?, deleted=?, user_id_fk= ?, WHERE orders_id = ? AND deleted = 0';
     return new Promise((resolve, reject) => {
       connection.execute(query, [orderData.order_date, orderData.total_amount,orderData.status, orderData.payment_method, orderData.created_at, orderData.created_by,orderData.updated_at, orderData.updated_by,orderData.deleted,orderData.user_id_fk, orders_id], (error, result: ResultSetHeader) => {
         if (error) {
@@ -67,7 +67,7 @@ export class OrdersRepository {
   }
 
   public static async deleteOrder(orders_id: number): Promise<boolean> {
-    const query = 'DELETE FROM Oders WHERE orders_id = ?';
+    const query = 'DELETE FROM Oders WHERE orders_id = ? AND deleted = 0';
     return new Promise((resolve, reject) => {
       connection.execute(query, [orders_id], (error, result: ResultSetHeader) => {
         if (error) {
