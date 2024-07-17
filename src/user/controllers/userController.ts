@@ -6,9 +6,8 @@ export const loginUser= async (req: Request, res: Response) => {
     const token = await userService.login(email, password);
     if (!token) {
       res.status(401).json({ message: 'Invalid email or password' });
-    }else{
-      res.setHeader("Authorization",token);
-      res.status(200).json({ message: 'Inicio de sesión exitoso'});
+    }else {
+      res.status(200).json({ message: 'Inicio de sesión exitoso', token});
     }
 
   } catch (error) {
