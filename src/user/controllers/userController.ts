@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import { userService } from '../services/userService';
+import jwt from 'jsonwebtoken';
+const secretKey = process.env.SECRET || "";
+import { UserPayLoad } from '../../shared/config/types/userPayLoad';
 export const loginUser= async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
@@ -7,8 +10,9 @@ export const loginUser= async (req: Request, res: Response) => {
     if (!token) {
       res.status(401).json({ message: 'Invalid email or password' });
     }else {
-      res. setHeader("Authorization", token);
-      res.status(200).json({ message: 'Inicio de sesión exitoso'});
+      const user = jwt.verify(token, secretKey) as UserPayLoad;
+      //res. setHeader("Authorization", token);
+      res.status(200).json({ message: 'Inicio de sesión exitoso', user, token});
     }
 
   } catch (error) {
