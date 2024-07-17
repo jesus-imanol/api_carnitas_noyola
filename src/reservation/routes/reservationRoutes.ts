@@ -7,7 +7,7 @@ reservationRoutes.get('/acepted',  getReservationsAcepted);
 reservationRoutes.get('/pending',  getReservationsPending);
 reservationRoutes.get('/canceled',  getReservationsCanceled);
 reservationRoutes.get('/date/:reservationsDate', getReservationsByReservationsDate);
-reservationRoutes.put('/delete/:product_id', deletedReservationLogic);
+reservationRoutes.put('/delete/:reservation_id', deletedReservationLogic);
 reservationRoutes.get('/reservation/:reservation_id', getReservationById);
 reservationRoutes.put('/:reservation_id',  updatedReservation);
 reservationRoutes.delete('/:reservation_id', deleteReservation);
