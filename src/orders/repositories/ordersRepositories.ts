@@ -1,7 +1,7 @@
 import { ResultSetHeader } from 'mysql2';
 import connection from '../../shared/config/database';
 import { Orders } from '../models/ordersModel';
-import { ProductOrders } from '../models/productId';
+//import { ProductOrders } from '../models/productId';
 export class OrdersRepository {
 
   public static async findAll(): Promise<Orders[]> {
