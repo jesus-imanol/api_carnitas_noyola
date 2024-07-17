@@ -1,5 +1,5 @@
 export interface ProductOrders{
-    product_id: number,
+    product_id_fk: number,
     amount: number
  }
  
