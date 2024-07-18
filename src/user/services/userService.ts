@@ -21,7 +21,8 @@ export class userService {
             const payload = {
                 user_id: user.user_id,
                 role_id_fk: user.role_id_fk,
-                email: user.email
+                email: user.email,
+                name: user.name
             }
             
             return await jwt.sign(payload, secretKey, { expiresIn: '1h' });

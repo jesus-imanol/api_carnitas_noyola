@@ -14,7 +14,7 @@ export const loginUser= async (req: Request, res: Response) => {
       //res. setHeader("Authorization", token);
       res.status(200).json({ message: 'Inicio de sesión exitoso', user, token});
     }
-
+    
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Internal server error' });
