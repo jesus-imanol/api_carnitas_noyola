@@ -11,10 +11,10 @@ export const loginUser= async (req: Request, res: Response) => {
       res.status(401).json({ message: 'Invalid email or password' });
     }else {
       const user = jwt.verify(token, secretKey) as UserPayLoad;
-      //res. setHeader("Authorization", token);
-      res.status(200).json({ message: 'Inicio de sesión exitoso', user, token});
+      res. setHeader("Authorization", token);
+      res.status(200).json({ message: 'Inicio de sesión exitoso', user});
     }
-    
+
   } catch (error) {
     console.error('Login error:', error);
     res.status(500).json({ message: 'Internal server error' });
