@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { authMiddleware } from '../../shared/middlewares/auth';
 import { createReservation, deletedReservationLogic, deleteReservation, getReservationById, getReservations, getReservationsAcepted, getReservationsByReservationsDate, getReservationsCanceled, getReservationsPending, updatedReservation } from '../controllers/reservationControllers';
 
 const reservationRoutes: Router = Router();
