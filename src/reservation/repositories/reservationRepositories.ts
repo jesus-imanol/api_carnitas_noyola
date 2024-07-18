@@ -96,7 +96,7 @@ export class ReservationRepository {
     });
   }
   public static async updateReservation(reservation_id: number, reservationData: Reservation): Promise<Reservation | null> {
-    const query = 'UPDATE Reservation SET description = ?, amount_persons=?, amount_tables=?, reservationsDate=?,status=?, created_at=?, created_by = ?, updated_at = ?, updated_by = ?, deleted = ?, user_id_fk=? WHERE product_id = ?';
+    const query = 'UPDATE Reservation SET description = ?, amount_persons=?, amount_tables=?, reservationsDate=?,status=?, created_at=?, created_by = ?, updated_at = ?, updated_by = ?, deleted = ?, user_id_fk=? WHERE reservation_id = ?';
     return new Promise((resolve, reject) => {
       connection.execute(query, [reservationData.description, reservationData.amount_persons, reservationData.amount_tables, reservationData.reservationsDate,reservationData.status, reservationData.created_at,reservationData.created_by,reservationData.updated_at, reservationData.updated_by, reservationData.deleted, reservationData.user_id_fk, reservation_id], (error, result: ResultSetHeader) => {
         if (error) {
