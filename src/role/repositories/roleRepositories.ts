@@ -66,7 +66,7 @@ export class RoleRepository {
   }
 
   public static async deleteRole(role_id: number): Promise<boolean> {
-    const query = 'DELETE FROM Role WHERE product_id = ?';
+    const query = 'DELETE FROM Role WHERE role_id = ?';
     return new Promise((resolve, reject) => {
       connection.execute(query, [role_id], (error, result: ResultSetHeader) => {
         if (error) {
