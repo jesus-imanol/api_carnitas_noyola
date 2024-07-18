@@ -11,7 +11,8 @@ export const loginUser= async (req: Request, res: Response) => {
       res.status(401).json({ message: 'Invalid email or password' });
     }else {
       const user = jwt.verify(token, secretKey) as UserPayLoad;
-      res. setHeader("Authorization", token);
+      res.setHeader("Authorization", token);
+      res.setHeader("Access-Control-Expose-Headers","Authorization");
       res.status(200).json({ message: 'Inicio de sesión exitoso', user});
     }
 
