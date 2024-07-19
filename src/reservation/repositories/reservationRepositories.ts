@@ -80,6 +80,18 @@ export class ReservationRepository {
       });
     });
   }
+  public static async findByUserIdFk(user_id_fk: number): Promise<Reservation[] > {
+    return new Promise((resolve, reject) => {
+      connection.query('SELECT * FROM Reservation WHERE user_id_fk = ? AND deleted = 0', [user_id_fk],(error: any, results) => {
+        if (error) {
+          reject(error);
+        } else {
+          const reservations: Reservation[] = results as Reservation[];
+          resolve(reservations);
+        }
+      });
+    });
+  }
 
   public static async createReservation(reservation: Reservation): Promise<Reservation> {
     const query = 'INSERT INTO Reservation (description,amount_persons,amount_tables,reservationsDate,status, created_at, created_by, updated_at, updated_by, deleted, user_id_fk) VALUES (?,?,?, ?, ?, ?, ?,?,?,?,?)';

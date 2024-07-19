@@ -1,7 +1,5 @@
 import { Router } from 'express';
-import { createReservation, deletedReservationLogic, deleteReservation, getReservationById, getReservations, getReservationsAcepted, getReservationsByReservationsDate, getReservationsCanceled, getReservationsPending, updatedReservation } from '../controllers/reservationControllers';
-//import { authMiddleware } from '../../shared/middlewares/auth';
-
+import { createReservation, deletedReservationLogic, deleteReservation, getReservationById, getReservationByUserIdFk, getReservations, getReservationsAcepted, getReservationsByReservationsDate, getReservationsCanceled, getReservationsPending, updatedReservation } from '../controllers/reservationControllers';
 const reservationRoutes: Router = Router();
 
 reservationRoutes.get('/acepted',getReservationsAcepted);
@@ -14,4 +12,5 @@ reservationRoutes.put('/:reservation_id', updatedReservation);
 reservationRoutes.delete('/:reservation_id', deleteReservation);
 reservationRoutes.get('/', getReservations);
 reservationRoutes.post('/', createReservation);
+reservationRoutes.get("/byUser/:user_id_fk", getReservationByUserIdFk);
 export default reservationRoutes;
