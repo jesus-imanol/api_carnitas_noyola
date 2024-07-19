@@ -47,6 +47,13 @@ export class reservationService {
             throw new Error(`Error al encontrar la reservación: ${error.message}`);
         }
     }
+    public static async getReservationByUserIdFk(user_id_fk: number): Promise<Reservation[]> {
+        try{
+            return await ReservationRepository.findByUserIdFk(user_id_fk);
+        }catch (error: any){
+            throw new Error(`Error al encontrar las reservación: ${error.message}`);
+        }
+    }
 
     public static async addReservation(reservation: Reservation) {
         try {

@@ -72,6 +72,18 @@ export const getReservationById = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
+export const getReservationByUserIdFk = async (req: Request, res: Response) => {
+  try {
+    const reservation = await reservationService.getReservationByUserIdFk(parseInt(req.params.user_id_fk, 10));
+    if(reservation){
+      res.status(201).json(reservation);
+    }else{
+      res.status(404).json({ message: 'No se encontró la reservación' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
 export const createReservation = async (req: Request, res: Response) => {
   try {
