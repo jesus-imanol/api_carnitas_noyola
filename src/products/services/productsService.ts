@@ -35,11 +35,14 @@ export class productsService {
         try{
             const productFound =  await ProductRepository.findById(product_id);
             if(productFound){
-                if(productData.type){
-                    productFound.type = productData.type;
+                if(productData.description){
+                    productFound.description = productData.description;
                 }
                 if(productData.price){
                     productFound.price = productData.price;
+                }
+                if(productData.image){
+                    productFound.image = productData.image;
                 }
             }else{
                 return null;

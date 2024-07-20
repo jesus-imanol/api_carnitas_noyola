@@ -1,6 +1,7 @@
 export interface Product{
     product_id: number | null;
-    type: string;
+    description: string;
+    image: string;
     amount: number;
     price: number;
     created_at: string;
