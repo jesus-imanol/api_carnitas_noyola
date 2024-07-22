@@ -29,7 +29,10 @@ export const getProductById = async (req: Request, res: Response) => {
 
 export const createProduct = async (req: Request, res: Response) => {
   try {
-    const newProduct = await productsService.addProduct(req.body);
+    if (!req.file) {
+      return res.status(400).send('No file uploaded.');
+    }
+    const newProduct = await productsService.addProduct(req.body, req.file);
     if(newProduct){
       res.status(201).json(newProduct);
     }else{

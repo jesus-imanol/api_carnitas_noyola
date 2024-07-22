@@ -1,7 +1,8 @@
 import { ProductRepository } from "../repositories/productsRepositories";
 import { Product } from "../models/productsModels";
 import { DateUtils } from "../../shared/utils/DateUtils";
-
+import * as dotenv from 'dotenv';
+dotenv.config();
 export class productsService {
 
     public static async getAllProducts(): Promise<Product[]> {
@@ -20,8 +21,11 @@ export class productsService {
         }
     }
 
-    public static async addProduct(product: Product) {
+    public static async addProduct(product: Product, file: Express.Multer.File) {
+        const urlProject = process.env.URL; 
+        const portProject = process.env.PORT; 
         try {
+            product.image = `${urlProject}: ${portProject}/images ${file.filename}`;
             product.created_at = DateUtils.formatDate(new Date());
             product.updated_at = DateUtils.formatDate(new Date());
             product.deleted=false;
