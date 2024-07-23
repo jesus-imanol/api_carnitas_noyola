@@ -25,7 +25,7 @@ export class productsService {
         const urlProject = process.env.URL; 
         const portProject = process.env.PORT; 
         try {
-            product.image = `${urlProject}:${portProject}/images${file.filename}`;
+            product.image = `${urlProject}:${portProject}/images/${file.filename}`;
             product.created_at = DateUtils.formatDate(new Date());
             product.updated_at = DateUtils.formatDate(new Date());
             product.deleted=false;
