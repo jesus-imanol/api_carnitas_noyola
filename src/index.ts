@@ -32,8 +32,9 @@ app.use('/api/users', userRoute);
 app.use("/api/orders", ordersRoutes);
 app.use("/api/roles", rolesRoutes);
 app.use("/api/reservations", reservationRoutes);
-app.use('/images', express.static(path.join(__dirname, '../images')));
-
+app.use('/images', express.static(path.join(__dirname, '/images')));
+ console.log(__dirname);
+ 
 // Middleware para manejar rutas no encontradas
 app.use(notFoundHandler);
 
