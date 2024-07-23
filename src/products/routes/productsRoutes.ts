@@ -3,8 +3,8 @@ import { getProducts, getProductById, createProduct, updatedProduct, deleteProdu
 //import { authMiddleware } from '../../shared/middlewares/auth';
 import upload from '../../shared/middlewares/uploadMidleware';
 const productsRoutes: Router = Router();
-productsRoutes.get('/',getProducts);
-productsRoutes.get('/:role_id',getProductById);
+productsRoutes.get('/Role/',getProducts);
+productsRoutes.get('/ByRole/:role_id',getProductById);
 productsRoutes.post('/',upload.single('image'),createProduct);
 productsRoutes.put('/product/:product_id',updatedProduct);
 productsRoutes.delete('/:product_id', deleteProduct);
