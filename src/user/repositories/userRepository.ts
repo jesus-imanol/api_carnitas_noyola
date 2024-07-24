@@ -17,7 +17,7 @@ export class UserRepository{
     }
     public static async findWithRole(user_id_fk: number): Promise<User[]> {
       return new Promise((resolve, reject) => {
-       connection.query("SELECT * FROM User WHERE user_id_fk = ? WHERE deleted = 0",[user_id_fk], (error: any, results) =>{
+       connection.query("SELECT * FROM User WHERE user_id_fk = ? AND deleted = 0",[user_id_fk], (error: any, results) =>{
         if(error){
           reject(error);
         }else{
