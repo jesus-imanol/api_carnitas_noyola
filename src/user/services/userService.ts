@@ -37,6 +37,13 @@ export class userService {
             throw new Error(`Error al obtener los usuarios: ${error.message}`);
         }
     }
+    public static async getAllUsersWithRoleId(role_id_fk: number): Promise<User[]> {
+        try{
+            return await UserRepository.findWithRole(role_id_fk);
+        }catch (error: any){
+            throw new Error(`Error al obtener los usuarios: ${error.message}`);
+        }
+    }
 
     public static async getUserById(user_id: number): Promise<User | null> {
         try{
