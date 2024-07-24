@@ -48,7 +48,7 @@ export const getUsers = async (_req: Request, res: Response) => {
 };
 export const getUsersWithRole = async (req: Request, res: Response) => {
   try {
-    const users = await userService.getAllUsersWithRoleId(parseInt(req.params.user_id_fk, 10));
+    const users = await userService.getAllUsersWithRoleId(parseInt(req.params.role_id_fk, 10));
     if(users){
       res.status(201).json(users);
     }else{
