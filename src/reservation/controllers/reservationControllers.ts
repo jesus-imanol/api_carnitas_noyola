@@ -12,6 +12,18 @@ export const getReservations = async (_req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
+export const getReservationWithUsers = async(_req: Request, res: Response)=>{
+  try{
+   const reservations = await reservationService.getReservationsWithUsers();
+   if(reservations){
+    res.status(201).json(reservations);
+   }else{
+    res.status(404).json({message: "No hay reservaciones que mostrar"})
+   }
+  }catch(error: any){
+    res.status(500).json({error : error.message})
+  }
+}
 export const getReservationsPending = async(_req: Request, res: Response) => {
     try{
      const reservations = await reservationService.getReservationsPending();
