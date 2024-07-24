@@ -19,7 +19,7 @@ export class ReservationRepository {
   public static async findReservationWithUsers(): Promise<ReservationUsers[]> {
     return new Promise((resolve, reject) => {
       connection.query(
-        `SELECT reservation_id, user_id, description, amount_persons, amount_tables, reservationsDate, status, name, lastname, email, number_phone FROM Reservation INNER JOIN User ON user_id_fk = user_id`,
+        `SELECT reservation_id, user_id, description, amount_persons, amount_tables, reservationsDate, status, name, lastname, email, number_phone FROM Reservation INNER JOIN User ON user_id_fk = user_id WHERE Reservation.deleted = 0 AND User.deleted = 0`,
         (error: any, results: any) => {
           if (error) {
             reject(error);
