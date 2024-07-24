@@ -15,6 +15,18 @@ export class UserRepository{
          });
       });
     }
+    public static async findWithRole(user_id_fk: number): Promise<User[]> {
+      return new Promise((resolve, reject) => {
+       connection.query("SELECT * FROM User WHERE user_id_fk = ?",[user_id_fk], (error: any, results) =>{
+        if(error){
+          reject(error);
+        }else{
+          const orders: User[] = results as User[];
+          resolve (orders);
+        }
+       });
+    });
+  }
     public static async findById(user_id: number): Promise<User | null>{
       return new Promise((resolve, reject) =>{
        connection.query('SELECT * FROM User WHERE user_id = ?', [user_id],(error: any, results) =>{
@@ -47,6 +59,7 @@ export class UserRepository{
         });
       });
     }
+  
     public static async createUser(user: User): Promise<User>{
       const query = 'INSERT INTO User (name,lastname, password, email, number_phone, created_at, created_by, updated_at, updated_by, deleted, role_id_fk) VALUES(?,?, ?, ?, ?, ?, ?, ?, ?, ?,?)';
       return new Promise((resolve, reject) =>{
