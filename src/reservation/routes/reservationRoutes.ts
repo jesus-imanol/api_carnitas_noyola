@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createReservation, deletedReservationLogic, deleteReservation, getReservationById, getReservationByUserIdFk, getReservations, getReservationsAcepted, getReservationsByReservationsDate, getReservationsCanceled, getReservationsPending, updatedReservation } from '../controllers/reservationControllers';
+import { createReservation, deletedReservationLogic, deleteReservation, getReservationById, getReservationByUserIdFk, getReservations, getReservationsAcepted, getReservationsByReservationsDate, getReservationsCanceled, getReservationsPending, getReservationWithUsers, updatedReservation } from '../controllers/reservationControllers';
 const reservationRoutes: Router = Router();
 
 reservationRoutes.get('/acepted',getReservationsAcepted);
@@ -13,4 +13,5 @@ reservationRoutes.delete('/:reservation_id', deleteReservation);
 reservationRoutes.get('/', getReservations);
 reservationRoutes.post('/', createReservation);
 reservationRoutes.get("/byUser/:user_id_fk", getReservationByUserIdFk);
+reservationRoutes.get("/reservationsUsers", getReservationWithUsers)
 export default reservationRoutes;
