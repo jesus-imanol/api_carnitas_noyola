@@ -96,7 +96,18 @@ export const updatedUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+export const deletedUserLogic = async(req: Request, res: Response)=>{
+  try{
+     const deletedUser = await userService.deletedUserLogic(parseInt(req.params.user_id, 10), req.body);
+     if(deletedUser){
+      res.status(201).json({message: "Usuario eliminado con éxito"});
+     }else{
+      res.status(404).json({message: "Algo salió mal" });
+     }
+  }catch(error: any){
+    res.status(500).json({error: error.message})
+  }
+}
 export const deleteUser = async (req: Request, res: Response) => {
   try {
     const deleted = await userService.deleteUser(parseInt(req.params.user_id, 10));

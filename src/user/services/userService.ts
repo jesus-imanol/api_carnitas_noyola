@@ -108,7 +108,21 @@ export class userService {
             throw new Error(`Error al modificar el usuario): ${error.message}`);
         }
     }
-
+    public static async deletedUserLogic(user_id: number, userData: User){ 
+        try{
+          const userFound = await UserRepository.findById(user_id);
+          if(userFound){
+              userFound.deleted= userData.deleted;
+              userFound.updated_by= userData.updated_by;
+              userFound.updated_at = DateUtils.formatDate(new Date());
+          }else{
+              return null;
+          }
+          return await UserRepository.updatedUser(user_id, userFound);
+        }catch(error:any){
+      throw new Error(`Error al eliminar usuario: ${error.message}`);
+        }
+      }
     public static async deleteUser(user_id: number): Promise<boolean> {
         try{
             return await UserRepository.deleteUser(user_id);
