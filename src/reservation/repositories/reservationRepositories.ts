@@ -1,6 +1,7 @@
 import { ResultSetHeader } from 'mysql2';
 import connection from '../../shared/config/database';
 import { Reservation } from '../models/reservationModels';
+import { ReservationUsers } from '../models/reservationUsers';
 export class ReservationRepository {
 
   public static async findAll(): Promise<Reservation[]> {
@@ -15,7 +16,21 @@ export class ReservationRepository {
       });
     });
   }
-
+  public static async findReservationWithUsers(): Promise<ReservationUsers[]> {
+    return new Promise((resolve, reject) => {
+      connection.query(
+        `SELECT reservation_id, user_id, description, amount_persons, amount_tables, reservationsDate, status, name, lastname, email, number_phone FROM Reservation INNER JOIN User ON user_id_fk = user_id`,
+        (error: any, results: any) => {
+          if (error) {
+            reject(error);
+          } else {
+            const reservations: ReservationUsers[] = results as ReservationUsers[];
+            resolve(reservations);
+          }
+        }
+      );
+    });
+  }
   public static async findById(reservation_id: number): Promise<Reservation | null> {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM Reservation WHERE reservation_id = ? AND deleted = 0', [reservation_id], (error: any, results) => {

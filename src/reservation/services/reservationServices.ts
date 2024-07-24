@@ -1,6 +1,7 @@
 import { ReservationRepository } from "../repositories/reservationRepositories";
 import { Reservation } from "../models/reservationModels";
 import { DateUtils } from "../../shared/utils/DateUtils";
+import { ReservationUsers } from "../models/reservationUsers";
 
 export class reservationService {
 
@@ -11,7 +12,13 @@ export class reservationService {
             throw new Error(`Error al obtener las reservaciones: ${error.message}`);
         }
     }
-
+    public static async getReservationsWithUsers (): Promise<ReservationUsers[]>{
+        try{
+            return await ReservationRepository.findReservationWithUsers();
+        }catch(error: any){
+            throw new Error(`Error al obtener las reservaciones: ${error.message}`)
+        }
+    }
     public static async getReservationsPending(): Promise<Reservation[]>{
         try{
         return await ReservationRepository.findByStatusPending();
