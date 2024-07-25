@@ -1,6 +1,7 @@
 import { ResultSetHeader } from 'mysql2';
 import connection from '../../shared/config/database';
 import { Orders } from '../models/ordersModel';
+import { ProductOrders } from '../models/productOrders';
 //import { ProductOrders } from '../models/productOrders';
 export class OrdersRepository {
 
@@ -33,7 +34,20 @@ export class OrdersRepository {
       });
     });
   }
-
+  public static async createdProductOrder(productOrders: ProductOrders): Promise <ProductOrders>{
+    const query = "INSERT INTO ProductOrders (product_id_fk, orders_id_fk, amount) VALUES(?,?,?)";
+    return new Promise((resolve, reject)=>{
+      connection.execute(query, [productOrders.product_id_fk, productOrders.orders_id_fk, productOrders.amount], (error, result: ResultSetHeader)=>{
+        if(error){
+          reject(error);
+        }else{
+          const createdProductOrderId= result.insertId;
+          const createdProductOrder: ProductOrders = {...productOrders, orders_id_fk: createdProductOrderId}
+          resolve(createdProductOrder);
+        }
+      })
+    })
+  }
   public static async createOrder(order: Orders): Promise<Orders> {
     const query = 'INSERT INTO Orders (order_date, total_amount, status, payment_method, created_at, created_by, updated_at, updated_by, deleted, user_id_fk) VALUES (?,?,?, ?, ?, ?, ?, ?, ?,?)';
     //const query2 = "INSERT INTO ProductOrders (id_productOrders, id_product, id_orders) VALUES(?,?,?)";
@@ -50,20 +64,6 @@ export class OrdersRepository {
     );
     });
   }
-/*public static async createdOrderProduct(product: ProductOrders, order_id_fk: number): Promise<ProductOrders> {
-    const query = "INSERT INTO ProductOrders (product_id_fk, orders_id_fk, amount) VALUES (?, ?, ?)";
-    return new Promise((resolve, reject) => {
-        connection.execute(query, [product.product_id_fk, order_id_fk, product.amount], (error, result: ResultSetHeader) => {
-            if (error) {
-                reject(error);
-            } else {
-                const createdProductOrdersId = result.insertId;
-                const createdProductOrders = { ...product, createdProductOrdersId };
-                resolve(createdProductOrders);
-            }
-        });
-    });
-}*/
   public static async updateOrder(orders_id: number, orderData: Orders): Promise<Orders | null> {
     const query = 'UPDATE Orders SET order_date=?, total_amount=?, status=?, payment_method=?, created_at=?, created_by=?, updated_at=?, updated_by=?, deleted=?, user_id_fk= ?, WHERE orders_id = ? AND deleted = 0';
     return new Promise((resolve, reject) => {

@@ -1,6 +1,9 @@
 import { OrdersRepository } from "../repositories/ordersRepositories";
 import { Orders } from "../models/ordersModel";
 import { DateUtils } from "../../shared/utils/DateUtils";
+import { ProductAmount } from "../models/productsAmount";
+import { ProductOrders } from "../models/productOrders";
+import { ProductRepository } from "../../products/repositories/productsRepositories";
 
 export class ordersService {
 
@@ -30,7 +33,32 @@ export class ordersService {
             throw new Error(`Error al crear pedido: ${error.message}`);
         }
     }
-
+    public static async addProductOrder(relations: Array<ProductAmount>, orders_id: number){
+     try {
+         const allProducts = await ProductRepository.findAll();
+         for(let i=0; i<allProducts.length; i++){
+            for(let j = 0; j<relations.length; j++ ){
+                if(relations[j].product_id_fk == allProducts[i].product_id){
+                    if(relations[j].amount>allProducts[i].amount){
+                        return new Error(`La cantidad que solicita del product ${allProducts[i]} sobrepasa la cantidad extistente (${allProducts[i].amount})`)
+                    }
+                }
+            }
+         }
+        const dates = relations.map(products =>{
+            const productOrders: ProductOrders = {
+                product_id_fk : products.product_id_fk,
+                orders_id_fk : orders_id,
+                amount : products.amount
+            }
+            return OrdersRepository.createdProductOrder(productOrders)
+        })
+        const results = await Promise.all(dates);
+        return results;
+     }catch(error: any){
+        throw new Error(`Error al crear el pedido ${error.message}`)
+     }
+    }
     public static async modifyOrder(orders_id: number, orderData: Orders){
         try{
             const orderFound =  await OrdersRepository.findById(orders_id);
