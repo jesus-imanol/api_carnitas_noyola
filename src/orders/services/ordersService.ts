@@ -38,6 +38,26 @@ export class ordersService {
         
     }
     }
+    public static async getOrdersWIthProductsByUserId(user_id_fk: number): Promise <ProductWithOrdersOnly[]>{
+        try {
+           return await OrdersRepository.findOrdersWithProductsById(user_id_fk); 
+        } catch (error: any) {
+            throw new Error(`Error al encontrar pedido: ${error.message}`);
+            
+        }
+        }
+    public static async getFullTotalAmount():Promise <number>{
+        try{
+        const orders =await OrdersRepository.findAll();
+        let fullAmount = 0;
+        for(let i = 0; i<orders.length; i++){
+            fullAmount += orders[i].total_amount;
+        }
+        return fullAmount;
+        }catch(error: any){
+            throw new Error(`Error al encontrar pedido: ${error.message}`);
+        }
+    }
     public static async addOrder(order: Orders) {
         try {
             order.created_at = DateUtils.formatDate(new Date());

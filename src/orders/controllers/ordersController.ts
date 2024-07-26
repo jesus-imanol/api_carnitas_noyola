@@ -50,6 +50,30 @@ export const getOrdersWIthProductsById = async (req: Request, res: Response)=>{
    res.status(500).json({error: error.message}) 
   }
 }
+export const getOrdersWIthProductsByUserId = async (req: Request, res: Response)=>{
+  try {
+    const order= await ordersService.getOrdersWIthProductsById(parseInt(req.params.user_id_fk, 10));
+    if(order){
+      res.status(201).json(order);
+    }else{
+      res.status(404).json({message: "No se encontró el pedido"})
+    }
+  } catch (error: any) {
+   res.status(500).json({error: error.message}) 
+  }
+}
+export const getFullTotalAmount = async(req:Request, res: Response)=>{
+  try {
+    const fullAmount = await ordersService.getFullTotalAmount();
+    if(fullAmount){
+      res.status(201).json(fullAmount)
+    }else{
+      res.status(404).json({message: "No se ha podido sacar la cantidad total"})
+    }
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+}
 export const createOrder = async (req: Request, res: Response) => {
   try {
     const {relations}= req.body;

@@ -58,6 +58,18 @@ export class OrdersRepository {
       })
     })
   }
+  public static async findOrdersWithProductsByUserId(user_id_fk: number): Promise<ProductWithOrdersOnly[]>{
+    return new Promise ((resolve, reject)=> {
+      connection.query("SELECT orders_id, product_id, ProductOrders.amount, order_date, total_amount, status,description, price FROM Orders JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk Where user_id_fk = ? AND Orders.deleted=0 AND Product.deleted = 0 ORDER BY orders_id ", [user_id_fk], (error: any, results)=>{
+        if(error){
+          reject(error); 
+        }else{
+          const orders: ProductWithOrdersOnly[] = results as ProductWithOrdersOnly[];
+          resolve(orders);
+        }
+      })
+    })
+  }
   public static async createdProductOrder(productOrders: ProductOrders): Promise <ProductOrders>{
     const query = "INSERT INTO ProductOrders (product_id_fk, orders_id_fk, amount) VALUES(?,?,?)";
     return new Promise((resolve, reject)=>{

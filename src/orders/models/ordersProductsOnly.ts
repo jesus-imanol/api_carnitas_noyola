@@ -4,7 +4,7 @@ export interface ProductWithOrdersOnly{
     amount: number;
     order_date: Date;
     total_amount: number;
-    status: string,
+    status: string;
     description: string;
     price: number;
 }
