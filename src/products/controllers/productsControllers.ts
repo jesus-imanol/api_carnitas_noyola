@@ -80,7 +80,7 @@ export const deletedProductLogic = async(req: Request, res: Response)=>{
 }
 export const addAmountProduct = async(req: Request, res: Response)=>{
   try{
-     const addAmountProduct = await productsService.addAmountProduct(parseInt(req.params.product_id, 10), req.body);
+     const addAmountProduct = await productsService.modifyAmountProduct(parseInt(req.params.product_id, 10), req.body);
      if(addAmountProduct){
       res.status(201).json({message: "Cantidad añadida con éxito"});
      }else{
