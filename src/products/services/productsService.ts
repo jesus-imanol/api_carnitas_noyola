@@ -20,7 +20,13 @@ export class productsService {
             throw new Error(`Error al encontrar producto: ${error.message}`);
         }
     }
-
+    public static async getProductByDescription(description: string): Promise<Product[]>{
+        try {
+            return await ProductRepository.findByName(description);
+        } catch (error: any) {
+            throw new Error(`Error al encontrar productos: ${error.message}`);
+        }
+    }
     public static async addProduct(product: Product, file: Express.Multer.File) {
         const urlProject = process.env.URL; 
         const portProject = process.env.PORT; 

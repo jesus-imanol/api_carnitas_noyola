@@ -26,7 +26,18 @@ export const getProductById = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+export const getProductsByDescription = async(req: Request, res: Response)=>{
+  try {
+    const product = await productsService.getProductByDescription(req.params.description);
+    if(product){
+      res.status(201).json(product);
+    }else{
+      res.status(404).json({messae: "No se encuentró ningún producto con esta descripción"});
+    }
+  } catch (error: any) {
+    res.status(500).json({error:error.message});
+  }
+}
 export const createProduct = async (req: Request, res: Response) => {
   try {
     if (!req.file) {

@@ -33,7 +33,19 @@ export class ProductRepository {
     });
   }
 
-  
+  public static async findByName(description: string): Promise <Product[] >{
+    return new Promise((resolve, reject)=>{
+      connection.query("SELECT * FROM Product Where description LIKE %?%", [description], (error: any, results) =>{
+        if(error){
+          reject(error);
+        }else{
+          const products: Product[] = results as Product[];
+          resolve(products);
+        }
+      })
+    })
+    }
+    
   public static async createProduct(product: Product): Promise<Product> {
     const query = 'INSERT INTO Product (description, image, amount, price, created_at, created_by, updated_at, updated_by, deleted) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?)';
     return new Promise((resolve, reject) => {
