@@ -16,7 +16,6 @@ export class ProductRepository {
       });
     });
   }
-
   public static async findById(product_id: number): Promise<Product | null> {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM Product WHERE product_id = ? AND deleted = 0 AND deleted=0', [product_id], (error: any, results) => {

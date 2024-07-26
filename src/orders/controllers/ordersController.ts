@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { ordersService } from '../services/ordersService';
+import { Orders } from '../models/ordersModel';
 
 export const getOrders = async (_req: Request, res: Response) => {
   try {
@@ -29,8 +30,10 @@ export const getOrderById = async (req: Request, res: Response) => {
 
 export const createOrder = async (req: Request, res: Response) => {
   try {
-    const newOrder = await ordersService.addOrder(req.body);
-    if(newOrder){
+    const {relations}= req.body;
+    const newOrder = await ordersService.addOrder(req.body as Orders);
+      const createdProductOrder = await ordersService.addProductOrder(relations, newOrder.orders_id)
+    if(newOrder && createdProductOrder){
       res.status(201).json(newOrder);
     }else{
       res.status(404).json({ message: 'Algo salió mal' });
