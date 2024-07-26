@@ -56,7 +56,11 @@ export const createOrder = async (req: Request, res: Response) => {
     const newOrder = await ordersService.addOrder(req.body as Orders);
       const createdProductOrder = await ordersService.addProductOrder(relations, newOrder.orders_id)
     if(newOrder && createdProductOrder){
-      res.status(201).json(newOrder);
+      if(createdProductOrder==null){
+        res.status(404).json({message: "Verifique que la cantidad que está pidiendo de los productos, no sea mayor a la cantidad existente"})
+       }else{
+        res.status(201).json(newOrder);
+       }
     }else{
       if(createdProductOrder==null){
        res.status(404).json({message: "Verifique que la cantidad que está pidiendo de los productos, no sea mayor a la cantidad existente"})
