@@ -28,6 +28,7 @@ export class ordersService {
             order.created_at = DateUtils.formatDate(new Date());
             order.updated_at = DateUtils.formatDate(new Date());
             order.deleted=false;
+            order.total_amount=0;
             return await OrdersRepository.createOrder(order);
         } catch (error: any) {
             throw new Error(`Error al crear pedido: ${error.message}`);
@@ -48,7 +49,7 @@ export class ordersService {
                 }
             }
          }
-        const dates = relations.map(products =>{
+        const dates = relations.map(products => {
             const productOrders: ProductOrders = {
                 product_id_fk : products.product_id_fk,
                 orders_id_fk : orders_id,
