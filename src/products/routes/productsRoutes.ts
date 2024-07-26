@@ -8,7 +8,7 @@ productsRoutes.get('/byRole/:role_id',getProductById);
 productsRoutes.post('/',upload.single('image'),createProduct);
 productsRoutes.put('/product/:product_id',updatedProduct);
 productsRoutes.delete('/:product_id', deleteProduct);
-productsRoutes.get("/productDescription", getProductsByDescription)
+productsRoutes.get("/productDescription/:description", getProductsByDescription)
 productsRoutes.put("/delete/:product_id", deletedProductLogic);
 productsRoutes.put("/addAmount/:product_id", addAmountProduct);
 export default productsRoutes;
