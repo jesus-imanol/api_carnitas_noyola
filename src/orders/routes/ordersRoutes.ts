@@ -5,7 +5,7 @@ import { createOrder, deletedOrderLogic, deleteOrder, getOrderById, getOrders, g
 const ordersRoutes: Router = Router();
 
 ordersRoutes.get('/',getOrders);
-ordersRoutes.get('/:product_id', getOrderById);
+ordersRoutes.get('/order/orders_id', getOrderById);
 ordersRoutes.post('/',createOrder);
 ordersRoutes.put('/:product_id', updatedOrder);
 ordersRoutes.delete('/:product_id', deleteOrder);
