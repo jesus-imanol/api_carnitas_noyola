@@ -62,7 +62,7 @@ export const getOrdersWIthProductsByUserId = async (req: Request, res: Response)
    res.status(500).json({error: error.message}) 
   }
 }
-export const getFullTotalAmount = async(req:Request, res: Response)=>{
+export const getFullTotalAmount = async(_req:Request, res: Response)=>{
   try {
     const fullAmount = await ordersService.getFullTotalAmount();
     if(fullAmount){
