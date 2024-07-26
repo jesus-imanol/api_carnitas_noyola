@@ -34,6 +34,7 @@ export class ProductRepository {
     });
   }
 
+  
   public static async createProduct(product: Product): Promise<Product> {
     const query = 'INSERT INTO Product (description, image, amount, price, created_at, created_by, updated_at, updated_by, deleted) VALUES (?, ?,?, ?, ?, ?, ?, ?, ?)';
     return new Promise((resolve, reject) => {
