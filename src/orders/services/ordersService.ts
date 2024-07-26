@@ -36,11 +36,14 @@ export class ordersService {
     public static async addProductOrder(relations: Array<ProductAmount>, orders_id: number){
      try {
          const allProducts = await ProductRepository.findAll();
+         let total_amount = 0;
          for(let i=0; i<allProducts.length; i++){
             for(let j = 0; j<relations.length; j++ ){
                 if(relations[j].product_id_fk == allProducts[i].product_id){
                     if(relations[j].amount>allProducts[i].amount){
-                        return new Error(`La cantidad que solicita del product ${allProducts[i]} sobrepasa la cantidad extistente (${allProducts[i].amount})`)
+                        return new Error(`La cantidad que solicita del producto ${allProducts[i]} sobrepasa la cantidad extistente (${allProducts[i].amount})`)
+                    }else{
+                        total_amount = total_amount + allProducts[i].amount;
                     }
                 }
             }
@@ -51,7 +54,8 @@ export class ordersService {
                 orders_id_fk : orders_id,
                 amount : products.amount
             }
-            return OrdersRepository.createdProductOrder(productOrders)
+            OrdersRepository.updatedTotalAmount(total_amount, orders_id)
+             return OrdersRepository.createdProductOrder(productOrders)
         })
         const results = await Promise.all(dates);
         return results;
