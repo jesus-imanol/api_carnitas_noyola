@@ -17,7 +17,6 @@ export class OrdersRepository {
       });
     });
   }
-
   public static async findById(orders_id: number): Promise<Orders | null> {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM Orders WHERE orders_id = ? AND deleted = 0', [orders_id], (error: any, results) => {
