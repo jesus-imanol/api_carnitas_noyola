@@ -4,6 +4,7 @@ import { DateUtils } from "../../shared/utils/DateUtils";
 import { ProductAmount } from "../models/productsAmount";
 import { ProductOrders } from "../models/productOrders";
 import { ProductRepository } from "../../products/repositories/productsRepositories";
+import { ProductWithOrdersAndUser } from "../models/ordersWithProducts";
 
 export class ordersService {
 
@@ -14,7 +15,13 @@ export class ordersService {
             throw new Error(`Error al obtener pedidos: ${error.message}`);
         }
     }
-
+    public static async getOrdersWithProductsAndUser(): Promise <ProductWithOrdersAndUser[]>{
+        try {
+            return await OrdersRepository.findOrdersWithProducts();
+        } catch (error: any) {
+            throw new Error(`Error al obtener pedidos: ${error.message}`);
+        }
+    }
     public static async getOrderById(orders_id: number): Promise<Orders | null> {
         try{
             return await OrdersRepository.findById(orders_id);

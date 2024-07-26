@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createOrder, deletedOrderLogic, deleteOrder, getOrderById, getOrders, updatedOrder, } from '../controllers/ordersController';
+import { createOrder, deletedOrderLogic, deleteOrder, getOrderById, getOrders, getOrdersWithProductsAndUser, updatedOrder, } from '../controllers/ordersController';
 //import { authMiddleware } from '../../shared/middlewares/auth';
 
 const ordersRoutes: Router = Router();
@@ -10,4 +10,5 @@ ordersRoutes.post('/',createOrder);
 ordersRoutes.put('/:product_id', updatedOrder);
 ordersRoutes.delete('/:product_id', deleteOrder);
 ordersRoutes.put("/delete/:orders_id",deletedOrderLogic);
+ordersRoutes.get("/ordersWithProducts", getOrdersWithProductsAndUser);
 export default ordersRoutes;

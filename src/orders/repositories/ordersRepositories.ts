@@ -2,6 +2,7 @@ import { ResultSetHeader } from 'mysql2';
 import connection from '../../shared/config/database';
 import { Orders } from '../models/ordersModel';
 import { ProductOrders } from '../models/productOrders';
+import { ProductWithOrdersAndUser } from '../models/ordersWithProducts';
 //import { ProductOrders } from '../models/productOrders';
 export class OrdersRepository {
 
@@ -33,7 +34,18 @@ export class OrdersRepository {
       });
     });
   }
-  //public static async findOrdersWithProducts(): Promise<>
+  public static async findOrdersWithProducts(): Promise<ProductWithOrdersAndUser[]>{
+    return new Promise((resolve, reject)=>{
+      connection.query("SELECT orders_id, product_id, user_id, order_date, total_amount, description, price, name, lastname, email, number_phone FROM Orders JOIN User On user_id=user_id_fk JOIN ProductOrders ON order_id= order_id_fk JOIN Product ON product_id=product_id_fk ORDER BY order_id", (error: any, results)=>{
+        if(error){
+          reject(error);
+        }else{
+          const orders: ProductWithOrdersAndUser[] = results as ProductWithOrdersAndUser[];
+          resolve(orders)
+        }
+      })
+    })
+  }
   public static async createdProductOrder(productOrders: ProductOrders): Promise <ProductOrders>{
     const query = "INSERT INTO ProductOrders (product_id_fk, orders_id_fk, amount) VALUES(?,?,?)";
     return new Promise((resolve, reject)=>{
