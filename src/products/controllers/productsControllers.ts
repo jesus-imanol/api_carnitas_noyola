@@ -26,7 +26,18 @@ export const getProductById = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+export const getProductsByDescription = async(req: Request, res: Response)=>{
+  try {
+    const product = await productsService.getProductByDescription(req.params.description);
+    if(product){
+      res.status(201).json(product);
+    }else{
+      res.status(404).json({messae: "No se encuentró ningún producto con esta descripción"});
+    }
+  } catch (error: any) {
+    res.status(500).json({error:error.message});
+  }
+}
 export const createProduct = async (req: Request, res: Response) => {
   try {
     if (!req.file) {
@@ -69,7 +80,7 @@ export const deletedProductLogic = async(req: Request, res: Response)=>{
 }
 export const addAmountProduct = async(req: Request, res: Response)=>{
   try{
-     const addAmountProduct = await productsService.addAmountProduct(parseInt(req.params.product_id, 10), req.body);
+     const addAmountProduct = await productsService.modifyAmountProduct(parseInt(req.params.product_id, 10), req.body);
      if(addAmountProduct){
       res.status(201).json({message: "Cantidad añadida con éxito"});
      }else{

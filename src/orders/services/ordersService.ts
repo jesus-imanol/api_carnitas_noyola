@@ -4,6 +4,7 @@ import { DateUtils } from "../../shared/utils/DateUtils";
 import { ProductAmount } from "../models/productsAmount";
 import { ProductOrders } from "../models/productOrders";
 import { ProductRepository } from "../../products/repositories/productsRepositories";
+import { ProductWithOrdersAndUser } from "../models/ordersWithProducts";
 
 export class ordersService {
 
@@ -14,7 +15,13 @@ export class ordersService {
             throw new Error(`Error al obtener pedidos: ${error.message}`);
         }
     }
-
+    public static async getOrdersWithProductsAndUser(): Promise <ProductWithOrdersAndUser[]>{
+        try {
+            return await OrdersRepository.findOrdersWithProducts();
+        } catch (error: any) {
+            throw new Error(`Error al obtener pedidos: ${error.message}`);
+        }
+    }
     public static async getOrderById(orders_id: number): Promise<Orders | null> {
         try{
             return await OrdersRepository.findById(orders_id);
@@ -28,6 +35,7 @@ export class ordersService {
             order.created_at = DateUtils.formatDate(new Date());
             order.updated_at = DateUtils.formatDate(new Date());
             order.deleted=false;
+            order.total_amount=0;
             return await OrdersRepository.createOrder(order);
         } catch (error: any) {
             throw new Error(`Error al crear pedido: ${error.message}`);
@@ -48,7 +56,7 @@ export class ordersService {
                 }
             }
          }
-        const dates = relations.map(products =>{
+        const dates = relations.map(products => {
             const productOrders: ProductOrders = {
                 product_id_fk : products.product_id_fk,
                 orders_id_fk : orders_id,

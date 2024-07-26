@@ -2,6 +2,7 @@ import { ResultSetHeader } from 'mysql2';
 import connection from '../../shared/config/database';
 import { Orders } from '../models/ordersModel';
 import { ProductOrders } from '../models/productOrders';
+import { ProductWithOrdersAndUser } from '../models/ordersWithProducts';
 export class OrdersRepository {
 
   public static async findAll(): Promise<Orders[]> {
@@ -16,7 +17,6 @@ export class OrdersRepository {
       });
     });
   }
-
   public static async findById(orders_id: number): Promise<Orders | null> {
     return new Promise((resolve, reject) => {
       connection.query('SELECT * FROM Orders WHERE orders_id = ? AND deleted = 0', [orders_id], (error: any, results) => {
@@ -33,7 +33,18 @@ export class OrdersRepository {
       });
     });
   }
-  //public static async findOrdersWithProducts(): Promise<>
+  public static async findOrdersWithProducts(): Promise<ProductWithOrdersAndUser[]>{
+    return new Promise((resolve, reject)=>{
+      connection.query("SELECT orders_id, product_id, user_id, amount, order_date, total_amount, status,description, price, name, lastname, email, number_phone FROM Orders JOIN User On user_id=user_id_fk JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk ORDER BY orders_id", (error: any, results)=>{
+        if(error){
+          reject(error);
+        }else{
+          const orders: ProductWithOrdersAndUser[] = results as ProductWithOrdersAndUser[];
+          resolve(orders)
+        }
+      })
+    })
+  }
   public static async createdProductOrder(productOrders: ProductOrders): Promise <ProductOrders>{
     const query = "INSERT INTO ProductOrders (product_id_fk, orders_id_fk, amount) VALUES(?,?,?)";
     return new Promise((resolve, reject)=>{

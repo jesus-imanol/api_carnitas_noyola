@@ -20,7 +20,13 @@ export class productsService {
             throw new Error(`Error al encontrar producto: ${error.message}`);
         }
     }
-
+    public static async getProductByDescription(description: string): Promise<Product[]>{
+        try {
+            return await ProductRepository.findByName(description);
+        } catch (error: any) {
+            throw new Error(`Error al encontrar productos: ${error.message}`);
+        }
+    }
     public static async addProduct(product: Product, file: Express.Multer.File) {
         const urlProject = process.env.URL; 
         const portProject = process.env.PORT; 
@@ -73,11 +79,11 @@ export class productsService {
     throw new Error(`Error al eliminar producto: ${error.message}`);
       }
     }
-    public static async addAmountProduct(product_id: number, productData: Product){ 
+    public static async modifyAmountProduct(product_id: number, productData: Product){ 
         try{
           const productFound = await ProductRepository.findById(product_id);
           if(productFound){
-              productFound.amount= productFound.amount+productData.amount;
+              productFound.amount= productData.amount;
               productFound.updated_by= productData.updated_by;
               productFound.updated_at = DateUtils.formatDate(new Date());
           }else{
