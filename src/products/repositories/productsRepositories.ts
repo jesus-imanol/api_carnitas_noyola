@@ -35,7 +35,8 @@ export class ProductRepository {
 
   public static async findByName(description: string): Promise <Product[] >{
     return new Promise((resolve, reject)=>{
-      connection.query("SELECT * FROM Product Where description LIKE %?%", [description], (error: any, results) =>{
+      description = '%'+ description +'%';
+      connection.query("SELECT * FROM Product Where description LIKE ? AND deleted = 0", [description], (error: any, results) =>{
         if(error){
           reject(error);
         }else{

@@ -5,6 +5,7 @@ import { ProductAmount } from "../models/productsAmount";
 import { ProductOrders } from "../models/productOrders";
 import { ProductRepository } from "../../products/repositories/productsRepositories";
 import { ProductWithOrdersAndUser } from "../models/ordersWithProducts";
+import { ProductWithOrdersOnly } from "../models/ordersProductsOnly";
 
 export class ordersService {
 
@@ -29,7 +30,14 @@ export class ordersService {
             throw new Error(`Error al encontrar pedido: ${error.message}`);
         }
     }
-
+    public static async getOrdersWIthProductsById(orders_id: number): Promise <ProductWithOrdersOnly[]>{
+    try {
+       return await OrdersRepository.findOrdersWithProductsById(orders_id); 
+    } catch (error: any) {
+        throw new Error(`Error al encontrar pedido: ${error.message}`);
+        
+    }
+    }
     public static async addOrder(order: Orders) {
         try {
             order.created_at = DateUtils.formatDate(new Date());

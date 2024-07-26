@@ -38,7 +38,18 @@ export const getOrderById = async (req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
-
+export const getOrdersWIthProductsById = async (req: Request, res: Response)=>{
+  try {
+    const order= await ordersService.getOrdersWIthProductsById(parseInt(req.params.orders_id, 10));
+    if(order){
+      res.status(201).json(order);
+    }else{
+      res.status(404).json({message: "No se encontró el pedido"})
+    }
+  } catch (error: any) {
+   res.status(500).json({error: error.message}) 
+  }
+}
 export const createOrder = async (req: Request, res: Response) => {
   try {
     const {relations}= req.body;

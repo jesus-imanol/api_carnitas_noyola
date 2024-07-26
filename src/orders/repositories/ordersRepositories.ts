@@ -3,6 +3,7 @@ import connection from '../../shared/config/database';
 import { Orders } from '../models/ordersModel';
 import { ProductOrders } from '../models/productOrders';
 import { ProductWithOrdersAndUser } from '../models/ordersWithProducts';
+import { ProductWithOrdersOnly } from '../models/ordersProductsOnly';
 export class OrdersRepository {
 
   public static async findAll(): Promise<Orders[]> {
@@ -35,12 +36,24 @@ export class OrdersRepository {
   }
   public static async findOrdersWithProducts(): Promise<ProductWithOrdersAndUser[]>{
     return new Promise((resolve, reject)=>{
-      connection.query("SELECT orders_id, product_id, user_id, ProductOrders.amount, order_date, total_amount, status,description, price, name, lastname, email, number_phone FROM Orders JOIN User On user_id=user_id_fk JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk ORDER BY orders_id", (error: any, results)=>{
+      connection.query("SELECT orders_id, product_id, user_id, ProductOrders.amount, order_date, total_amount, status,description, price, name, lastname, email, number_phone FROM Orders JOIN User On user_id=user_id_fk JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk ORDER BY orders_id Where Orders.deleted=0 AND Product.deleted = 0 AND User.deleted =0", (error: any, results)=>{
         if(error){
           reject(error);
         }else{
           const orders: ProductWithOrdersAndUser[] = results as ProductWithOrdersAndUser[];
           resolve(orders)
+        }
+      })
+    })
+  }
+  public static async findOrdersWithProductsById(orders_id: number): Promise<ProductWithOrdersOnly[]>{
+    return new Promise ((resolve, reject)=> {
+      connection.query("SELECT orders_id, product_id, ProductOrders.amount, order_date, total_amount, status,description, price FROM Orders JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk Where orders_id = ? AND Orders.deleted=0 AND Product.deleted = 0 ORDER BY orders_id ", [orders_id], (error: any, results)=>{
+        if(error){
+          reject(error); 
+        }else{
+          const orders: ProductWithOrdersOnly[] = results as ProductWithOrdersOnly[];
+          resolve(orders);
         }
       })
     })
@@ -76,7 +89,7 @@ export class OrdersRepository {
   }
   
   public static async updateOrder(orders_id: number, orderData: Orders): Promise<Orders | null> {
-    const query = 'UPDATE Orders SET order_date=?, total_amount=?, status=?, payment_method=?, created_at=?, created_by=?, updated_at=?, updated_by=?, deleted=?, user_id_fk= ?, WHERE orders_id = ? AND deleted = 0';
+    const query = 'UPDATE Orders SET order_date=?, total_amount=?, status=?, payment_method=?, created_at=?, created_by=?, updated_at=?, updated_by=?, deleted=?, user_id_fk= ? WHERE orders_id = ? AND deleted = 0';
     return new Promise((resolve, reject) => {
       connection.execute(query, [orderData.order_date, orderData.total_amount,orderData.status, orderData.payment_method, orderData.created_at, orderData.created_by,orderData.updated_at, orderData.updated_by,orderData.deleted,orderData.user_id_fk, orders_id], (error, result: ResultSetHeader) => {
         if (error) {
