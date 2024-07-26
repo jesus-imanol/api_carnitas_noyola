@@ -58,7 +58,11 @@ export const createOrder = async (req: Request, res: Response) => {
     if(newOrder && createdProductOrder){
       res.status(201).json(newOrder);
     }else{
-      res.status(404).json({ message: 'Algo salió mal' });
+      if(createdProductOrder==null){
+       res.status(404).json({message: "Verifique que la cantidad que está pidiendo de los productos, no sea mayor a la cantidad existente"})
+      }else{
+        res.status(404).json({ message: 'Algo salió mal' });
+      }
     }
   }catch (error: any) {
     res.status(500).json({ error: error.message });

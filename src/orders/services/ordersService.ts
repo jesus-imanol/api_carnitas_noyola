@@ -57,7 +57,8 @@ export class ordersService {
             for(let j = 0; j<relations.length; j++ ){
                 if(relations[j].product_id_fk == allProducts[i].product_id){
                     if(relations[j].amount>allProducts[i].amount){
-                        return new Error(`La cantidad que solicita del producto ${allProducts[i]} sobrepasa la cantidad extistente (${allProducts[i].amount})`)
+                        ordersService.deleteOrder(orders_id);
+                        return (null)
                     }else{
                         total_amount = total_amount + allProducts[i].amount;
                     }
