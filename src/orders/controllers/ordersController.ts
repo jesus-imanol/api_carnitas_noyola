@@ -52,7 +52,7 @@ export const getOrdersWIthProductsById = async (req: Request, res: Response)=>{
 }
 export const getOrdersWIthProductsByUserId = async (req: Request, res: Response)=>{
   try {
-    const order= await ordersService.getOrdersWIthProductsById(parseInt(req.params.user_id_fk, 10));
+    const order= await ordersService.getOrdersWIthProductsByUserId(parseInt(req.params.user_id_fk, 10));
     if(order){
       res.status(201).json(order);
     }else{
