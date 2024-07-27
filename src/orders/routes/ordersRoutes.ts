@@ -11,5 +11,5 @@ ordersRoutes.put('/:orders_id', updatedOrder);
 ordersRoutes.delete('/:orders_id', deleteOrder);
 ordersRoutes.put("/delete/:orders_id",deletedOrderLogic);
 ordersRoutes.get("/ordersWithProducts", getOrdersWithProductsAndUser);
-ordersRoutes.get("/ordersByUserId",getOrdersWIthProductsByUserId)
+ordersRoutes.get("/ordersByUserId/:user_id_fk",getOrdersWIthProductsByUserId)
 export default ordersRoutes;
