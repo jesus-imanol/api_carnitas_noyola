@@ -40,7 +40,7 @@ export class ordersService {
     }
     public static async getOrdersWIthProductsByUserId(user_id_fk: number): Promise <ProductWithOrdersOnly[]>{
         try {
-           return await OrdersRepository.findOrdersWithProductsById(user_id_fk); 
+           return await OrdersRepository.false(user_id_fk); 
         } catch (error: any) {
             throw new Error(`Error al encontrar pedido: ${error.message}`);
             
