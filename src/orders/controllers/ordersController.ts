@@ -14,9 +14,9 @@ export const getOrders = async (_req: Request, res: Response) => {
     res.status(500).json({ error: error.message });
   }
 };
-export const getOrdersWithProductsAndUser = async (_req: Request, res: Response)=>{
+export const getOrdersWithProductsAndUser = async (req: Request, res: Response)=>{
   try {
-    const orders = await ordersService.getOrdersWithProductsAndUser();
+    const orders = await ordersService.getOrdersWithProductsAndUser(new Date(req.params.order_date));
     if(orders){
       res.status(201).json(orders);
     }else{

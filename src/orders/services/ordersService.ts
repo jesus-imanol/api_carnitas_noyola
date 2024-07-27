@@ -16,9 +16,9 @@ export class ordersService {
             throw new Error(`Error al obtener pedidos: ${error.message}`);
         }
     }
-    public static async getOrdersWithProductsAndUser(): Promise <ProductWithOrdersAndUser[]>{
+    public static async getOrdersWithProductsAndUser(order_date: Date): Promise <ProductWithOrdersAndUser[]>{
         try {
-            return await OrdersRepository.findOrdersWithProducts();
+            return await OrdersRepository.findOrdersWithProducts(order_date);
         } catch (error: any) {
             throw new Error(`Error al obtener pedidos: ${error.message}`);
         }
