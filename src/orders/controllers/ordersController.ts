@@ -25,6 +25,18 @@ export const getOrdersWithProductsAndUser = async (req: Request, res: Response)=
     res.status(500).json({error: error.message})
   }
 }
+export const getOrdersValidationsWithProductsAndUser = async (_req:Request, res: Response)=>{
+  try {
+    const orders = await ordersService.getOrdersValidationsWithProductsAndUser();
+    if(orders){
+      res.status(201).json(orders);
+    }else{
+      res.status(404).json({message: "No hay pedidos que mostrar"})
+    }
+  } catch (error: any) {
+    res.status(500).json({error: error.message})
+  }
+}
 export const getOrderById = async (req: Request, res: Response) => {
   try {
     const order = await ordersService.getOrderById(parseInt(req.params.orders_id, 10));

@@ -23,6 +23,13 @@ export class ordersService {
             throw new Error(`Error al obtener pedidos: ${error.message}`);
         }
     }
+    public static async getOrdersValidationsWithProductsAndUser(): Promise <ProductWithOrdersAndUser[]>{
+        try {
+            return await OrdersRepository.findOrdersValidationsWithProductsAndUser();
+        } catch (error: any) {
+            throw new Error(`Error al obtener pedidos: ${error.message}`);
+        }
+    }
     public static async getOrderById(orders_id: number): Promise<Orders | null> {
         try{
             return await OrdersRepository.findById(orders_id);
