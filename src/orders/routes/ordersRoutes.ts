@@ -10,7 +10,7 @@ ordersRoutes.post('/',createOrder);
 ordersRoutes.put('/:orders_id', updatedOrder);
 ordersRoutes.delete('/:orders_id', deleteOrder);
 ordersRoutes.put("/delete/:orders_id",deletedOrderLogic);
-ordersRoutes.get("/ordersWithProducts", getOrdersWithProductsAndUser);
+ordersRoutes.get("/ordersWithProducts/:order_date", getOrdersWithProductsAndUser);
 ordersRoutes.get("/ordersByUserId/:user_id_fk",getOrdersWIthProductsByUserId);
 ordersRoutes.get("/allAmount", getFullTotalAmount);
 export default ordersRoutes;
