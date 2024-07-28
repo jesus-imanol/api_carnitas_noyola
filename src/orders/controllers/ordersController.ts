@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { ordersService } from '../services/ordersService';
 import { Orders } from '../models/ordersModel';
-
 export const getOrders = async (_req: Request, res: Response) => {
   try {
     const orders = await ordersService.getAllOrders();

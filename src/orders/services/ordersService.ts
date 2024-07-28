@@ -51,6 +51,7 @@ export class ordersService {
         const orders =await OrdersRepository.findAll();
         let fullAmount = 0;
         for(let i = 0; i<orders.length; i++){
+            if(orders[i].status == "Vendido" )
             fullAmount += orders[i].total_amount;
         }
         return fullAmount;
