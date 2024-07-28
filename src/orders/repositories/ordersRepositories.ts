@@ -46,6 +46,18 @@ export class OrdersRepository {
       })
     })
   }
+  public static async findOrdersValidationsWithProductsAndUser(): Promise<ProductWithOrdersAndUser[]>{
+    return new Promise((resolve, reject)=>{
+      connection.query("SELECT orders_id, product_id, user_id, ProductOrders.amount, order_date, total_amount, status,description, price, name, lastname, email, number_phone FROM Orders JOIN User On user_id = user_id_fk JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk WHERE Orders.deleted=0 AND Product.deleted = 0 AND User.deleted =0 ORDER BY orders_id ", (error: any, results)=>{
+        if(error){
+          reject(error);
+        }else{
+          const orders: ProductWithOrdersAndUser[] = results as ProductWithOrdersAndUser[];
+          resolve(orders)
+        }
+      })
+    })
+  }
   public static async findOrdersWithProductsById(orders_id: number): Promise<ProductWithOrdersOnly[]>{
     return new Promise ((resolve, reject)=> {
       connection.query("SELECT orders_id, product_id, ProductOrders.amount, order_date, total_amount, status,description, price FROM Orders JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk Where orders_id = ? AND Orders.deleted=0 AND Product.deleted = 0 ORDER BY orders_id ", [orders_id], (error: any, results)=>{
