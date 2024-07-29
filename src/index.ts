@@ -3,10 +3,9 @@ import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import cors from "cors";
 // Importar rutas de módulos
+import path from "path"
 //import employeeRoutes from './employee/routes/employeeRoutes';
-import productsRoutes from './products/routes/productsRoutes';
-
-// Importar middlewares compartidos
+import productsRoutes from './products/routes/productsRoutes';// Importar middlewares compartidos
 import { errorHandler } from './shared/middlewares/errorHandler';
 import { notFoundHandler } from './shared/middlewares/notFoundHandler';
 import userRoute from './user/routes/userRoute';
