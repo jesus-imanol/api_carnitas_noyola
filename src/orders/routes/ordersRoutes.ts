@@ -11,7 +11,7 @@ ordersRoutes.post('/',authMiddleware, createOrder);
 ordersRoutes.put('/:orders_id', authMiddleware, updatedOrder);
 ordersRoutes.delete('/:orders_id', authMiddleware, deleteOrder);
 ordersRoutes.put("/delete/:orders_id", authMiddleware, deletedOrderLogic);
-ordersRoutes.get("/ordersWithProducts/:order_date", authMiddleware, getOrdersWithProductsAndUser);
+ordersRoutes.get("/ordersWit hProducts/:order_date", authMiddleware, getOrdersWithProductsAndUser);
 ordersRoutes.get("/ordersWithProducts/", authMiddleware, getOrdersValidationsWithProductsAndUser);
 ordersRoutes.get("/ordersByUserId/:user_id_fk", authMiddleware, getOrdersWIthProductsByUserId);
 ordersRoutes.get("/allAmount/:order_date", authMiddleware, getFullTotalAmount);

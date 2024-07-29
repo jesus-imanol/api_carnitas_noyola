@@ -20,7 +20,7 @@ export class OrdersRepository {
   }
   public static async findAmountByOrderDate(order_date: Date): Promise<Orders[]>{
     return new Promise((resolve, reject)=>{
-      connection.query("SELECT total_amount FROM Orders WHERE order_date = ? AND deleted = 0 AND `status` = 'Vendido'", [order_date], (error : any, results)=>{
+      connection.query("SELECT total_amount FROM Orders WHERE DATE(order_date) = DATE(?) AND deleted = 0 AND `status` = 'Vendido'", [order_date], (error : any, results)=>{
         if(error){
           reject(error)
         }else{
@@ -48,7 +48,7 @@ export class OrdersRepository {
   }
   public static async findOrdersWithProducts(order_date: Date): Promise<ProductWithOrdersAndUser[]>{
     return new Promise((resolve, reject)=>{
-      connection.query("SELECT orders_id, product_id, user_id, ProductOrders.amount, order_date, total_amount, status,description, price, name, lastname, email, number_phone FROM Orders JOIN User On user_id=user_id_fk JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk WHERE order_date=? AND status = 'Vendido' AND Orders.deleted=0 AND Product.deleted = 0 AND User.deleted =0 ORDER BY orders_id ", [order_date], (error: any, results)=>{
+      connection.query("SELECT orders_id, product_id, user_id, ProductOrders.amount, order_date, total_amount, status,description, price, name, lastname, email, number_phone FROM Orders JOIN User On user_id=user_id_fk JOIN ProductOrders ON orders_id= orders_id_fk JOIN Product ON product_id=product_id_fk WHERE DATE(order_date)=DATE(?) AND status = 'Vendido' AND Orders.deleted=0 AND Product.deleted = 0 AND User.deleted =0 ORDER BY orders_id ", [order_date], (error: any, results)=>{
         if(error){
           reject(error);
         }else{
