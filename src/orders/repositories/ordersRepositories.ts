@@ -20,7 +20,7 @@ export class OrdersRepository {
   }
   public static async findAmountByOrderDate(order_date: Date): Promise<Orders[]>{
     return new Promise((resolve, reject)=>{
-      connection.query("SELECT total_amunt FROM Orders WHERE order_date = ? AND deleted = 0 AND status = 'Vendido'", [order_date], (error : any, results)=>{
+      connection.query("SELECT total_amount FROM Orders WHERE order_date = ? AND deleted = 0 AND status = 'Vendido'", [order_date], (error : any, results)=>{
         if(error){
           reject(error)
         }else{
