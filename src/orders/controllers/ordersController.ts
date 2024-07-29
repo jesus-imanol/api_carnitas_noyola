@@ -76,7 +76,7 @@ export const getOrdersWIthProductsByUserId = async (req: Request, res: Response)
 export const getFullTotalAmount = async(req:Request, res: Response)=>{
   try {
     const fullAmount = await ordersService.getFullTotalAmount(new Date(req.params.order_date));
-      res.status(201).json(fullAmount)
+      res.status(201).json({fullAmount: fullAmount})
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
