@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import { ordersService } from '../services/ordersService';
 import { Orders } from '../models/ordersModel';
-
 export const getOrders = async (_req: Request, res: Response) => {
   try {
     const orders = await ordersService.getAllOrders();
@@ -74,9 +73,9 @@ export const getOrdersWIthProductsByUserId = async (req: Request, res: Response)
    res.status(500).json({error: error.message}) 
   }
 }
-export const getFullTotalAmount = async(_req:Request, res: Response)=>{
+export const getFullTotalAmount = async(req:Request, res: Response)=>{
   try {
-    const fullAmount = await ordersService.getFullTotalAmount();
+    const fullAmount = await ordersService.getFullTotalAmount(new Date(req.params.order_date));
     if(fullAmount){
       res.status(201).json(fullAmount)
     }else{

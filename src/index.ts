@@ -2,7 +2,6 @@ import express, { Application } from 'express';
 import bodyParser from 'body-parser';
 import * as dotenv from 'dotenv';
 import cors from "cors";
-import path from 'path';
 // Importar rutas de módulos
 //import employeeRoutes from './employee/routes/employeeRoutes';
 import productsRoutes from './products/routes/productsRoutes';
@@ -34,7 +33,6 @@ app.use("/api/roles", rolesRoutes);
 app.use("/api/reservations", reservationRoutes);
 app.use('/images', express.static(path.join(__dirname, '/images')));
  console.log("Dirname: " + __dirname);
- 
 // Middleware para manejar rutas no encontradas
 app.use(notFoundHandler);
 

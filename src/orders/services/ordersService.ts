@@ -53,9 +53,9 @@ export class ordersService {
             
         }
         }
-    public static async getFullTotalAmount():Promise <number>{
+    public static async getFullTotalAmount(order_date: Date):Promise <number>{
         try{
-        const orders =await OrdersRepository.findAll();
+        const orders = await OrdersRepository.findAmountByOrderDate(order_date);
         let fullAmount = 0;
         for(let i = 0; i<orders.length; i++){
             fullAmount += orders[i].total_amount;
